@@ -32,24 +32,37 @@ class Mortgage(object):
 
     def __str__(self):
         return self.legend
-        
+
 class Fixed(Mortgage):
     """Subclass of Mortgage to track fixed mortgage objects"""
-    def __init__(self):
-        pass
+    def __init__(self, loan, r, months):
+        Mortgage.__init__(self, loan, r, months)
+        self.legend ='Fixed, ' + str(round(r*100,2)) + '%'
 
-    pass
 
 class FixedWithPts(Mortgage):
     """Subclass of Mortgage to track mortgage with points objects"""
-    def __init__(self):
-        pass
-    
-    pass
+    def __init__(self, loan, r, months, pts):
+        Mortgage.__init__(self, loan, r, months)
+        self.pts = pts
+        self.paid = [loan*(pts/100)]
+        self.legend  = 'Fixed, ' + str(round(r*100,2)) + '%, ' \
+                        + str(pts) + 'points'
 
 class TwoRate(Mortgage):
     """Subclass of Mortgage to track variable interest rate mortgage"""
-    def __init__(self):
-        pass
+    def __init__(self, loan, r, months, teaser_rate, teaser_months):
+        Mortgage.__init__(self, loan, teaser_rate, months)
+        self.teaser_months = teaser_months
+        self.teaser_rate = teaser_rate
+        self.next_rate = r/12
+        self.legend = str(teaser_rate*100)\
+                    + '% for ' + str(self.teaser_months)\
+                    + ' months, then ' + str(round(r*100, 2)) + '%'
+    
+    def make_payment(self):
+        if len(self.paid) == self.teaser_months + 1:
+            self.rate = self.next_rate
+            self.payment = find_payment(self.outstanding[-1], self.rate, self.months - self.teaser_months)
 
-    pass
+        Mortgage.make_payment(self)
