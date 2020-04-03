@@ -23,7 +23,7 @@ class Mortgage(object):
     def make_payment(self):
         """Make a payment"""
         self.paid.append(self.payment)
-        reduction = self.payment - (self.oustanding[-1] * self.rate)
+        reduction = self.payment - (self.outstanding[-1] * self.rate)
         self.outstanding.append(self.outstanding[-1] - reduction)
 
     def get_total_paid(self):
