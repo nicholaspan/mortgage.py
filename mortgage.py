@@ -12,3 +12,24 @@ class Mortgage(object):
         pass
 
     pass
+
+class Fixed(Mortgage):
+    """Subclass of Mortgage to track fixed mortgage objects"""
+    def __init__(self):
+        pass
+
+    pass
+
+class FixedWithPts(Mortgage):
+    """Subclass of Mortgage to track mortgage with points objects"""
+    def __init__(self):
+        pass
+    
+    pass
+
+class TwoRate(Mortgage):
+    """Subclass of Mortgage to track variable interest rate mortgage"""
+    def __init__(self):
+        pass
+
+    pass
